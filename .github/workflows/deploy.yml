@@ -51,3 +51,5 @@ jobs:
               $IMAGE_NAME
 
             echo ">>> Déploiement terminé avec succès !"
+
+            # test
