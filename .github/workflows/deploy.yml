@@ -18,9 +18,36 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /var/www/application-web
+            set -e
+
+            APP_DIR="/var/www/application-web"
+            IMAGE_NAME="application-web-vue"
+            CONTAINER_NAME="application-web-container"
+            PORT=80
+
+            # Cloner le repo si le dossier n'existe pas encore
+            if [ ! -d "$APP_DIR/.git" ]; then
+              echo ">>> Premier déploiement : clonage du repo..."
+              sudo mkdir -p $APP_DIR
+              sudo chown $USER:$USER $APP_DIR
+              git clone https://github.com/${{ secrets.GITHUB_REPO }}.git $APP_DIR
+            fi
+
+            cd $APP_DIR
             git pull origin main
-            docker build -t application-web-vue .
-            docker stop application-web-container || true
-            docker rm application-web-container || true
-            docker run -d --name application-web-container -p 80:80 application-web-vue
+
+            # Build de l'image Docker
+            docker build -t $IMAGE_NAME .
+
+            # Arrêter et supprimer l'ancien container s'il existe
+            docker stop $CONTAINER_NAME 2>/dev/null || true
+            docker rm $CONTAINER_NAME 2>/dev/null || true
+
+            # Lancer le nouveau container
+            docker run -d \
+              --name $CONTAINER_NAME \
+              --restart unless-stopped \
+              -p $PORT:80 \
+              $IMAGE_NAME
+
+            echo ">>> Déploiement terminé avec succès !"
