@@ -20,7 +20,7 @@ jobs:
           script: |
             cd /var/www/application-web
             git pull origin main
-            docker build -t mon-app-vue .
-            docker stop mon-app-container || true
-            docker rm mon-app-container || true
-            docker run -d --name mon-app-container -p 80:80 mon-app-vue
+            docker build -t application-web-vue .
+            docker stop application-web-container || true
+            docker rm application-web-container || true
+            docker run -d --name application-web-container -p 80:80 application-web-vue
