@@ -5,15 +5,14 @@ import NavBar from './components/NavBar.vue'
 
 <template>
   <NavBar />
-  <main class="main-content">
-    <RouterView />
-  </main>
+  <RouterView />
 </template>
 
-<style scoped>
-.main-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 </style>
+         
