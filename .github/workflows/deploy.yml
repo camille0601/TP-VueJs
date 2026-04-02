@@ -23,7 +23,7 @@ jobs:
             APP_DIR="/var/www/application-web"
             IMAGE_NAME="application-web-vue"
             CONTAINER_NAME="application-web-container"
-            PORT=80
+            PUBLIC_PORT=8080
 
             # Cloner le repo si le dossier n'existe pas encore
             if [ ! -d "$APP_DIR/.git" ]; then
@@ -47,7 +47,7 @@ jobs:
             docker run -d \
               --name $CONTAINER_NAME \
               --restart unless-stopped \
-              -p $PORT:80 \
+              -p $PUBLIC_PORT:80 \
               $IMAGE_NAME
 
             echo ">>> Déploiement terminé avec succès !"
