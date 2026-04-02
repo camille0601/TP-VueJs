@@ -1,0 +1,78 @@
+/* Hero layout */
+.hero {
+  max-width: 1200px;
+  margin: 3.5rem auto;
+  padding: 0 1.5rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.hero__left {
+  flex: 1 1 55%;
+}
+
+.hero__right {
+  flex: 1 1 45%;
+  display: flex;
+  justify-content: center;
+}
+
+.hero__title {
+  font-size: 3rem;
+  line-height: 1.05;
+  color: #fff;
+  margin: 0 0 1rem 0;
+}
+
+.hero__subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.25rem;
+}
+
+.hero__ctas {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn {
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: linear-gradient(90deg, #7c6ef7, #5b8fff);
+  color: #fff;
+  border: none;
+}
+
+.btn--ghost {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.feature {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 1rem;
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+  }
+  .features {
+    grid-template-columns: 1fr;
+  }
+}
