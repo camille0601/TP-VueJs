@@ -24,11 +24,11 @@ app.get('/api/reviews', async (req, res) => {
   res.json(db.reviews || [])
 })
 
-app.use(express.static(path.join(__dirname, "dist")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
-});
+// API-only server: remove static file serving to avoid ENOENT when dist is absent
+// Root returns a small JSON to confirm server is up
+app.get('/', (req, res) => {
+  res.json({ ok: true, message: 'API running' })
+})
 
 app.post('/api/reviews', async (req, res) => {
   try {
@@ -70,7 +70,7 @@ app.post('/api/register', async (req, res) => {
   }
 })
 
-app.post('/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
   try {
     const { username, password } = req.body
     if (!username || !password) return res.status(400).json({ ok: false, message: 'username and password required' })
@@ -85,6 +85,11 @@ app.post('/login', async (req, res) => {
     console.error(err)
     res.status(500).json({ ok: false, message: 'server error' })
   }
+})
+
+// Provide an explicit GET /login to avoid 404 when frontend URLs hit the API port
+app.get('/login', (req, res) => {
+  res.status(200).json({ ok: false, message: 'Cette route est réservée au front-end. Utilisez POST /api/login pour vous authentifier.' })
 })
 
 const PORT = process.env.PORT || 4000

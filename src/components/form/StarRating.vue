@@ -1,6 +1,5 @@
 <script setup>
 import { ref, watch, computed } from 'vue'
-import { defineProps, defineEmits } from 'vue'
 
 const props = defineProps({ modelValue: { type: Number, default: 5 }, max: { type: Number, default: 5 } })
 const emit = defineEmits(['update:modelValue'])
