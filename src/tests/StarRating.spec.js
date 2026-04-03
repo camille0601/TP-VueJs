@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import StarRating from '../../components/form/StarRating.vue'
+import StarRating from '@components/form/StarRating.vue'
 
 describe('StarRating', () => {
   it('emits update:modelValue on click', async () => {
